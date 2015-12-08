@@ -165,6 +165,9 @@ Return Value:
 //=============================================================================
 CAdapterCommon::CAdapterCommon(PUNKNOWN pUnknownOuter):CUnknown( pUnknownOuter )
 {
+	PAGED_CODE();
+
+	DPF_ENTER(("[CAdapterCommon::CAdapterCommon]"));
 	////
 	m_PowerState  = PowerDeviceD0;
 }
