@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{c182cf08-5325-4e76-9daa-b8b42b9333a2}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{6ebc5f28-bfd1-4146-9c4b-4ee071e47f20}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{57219778-d789-4119-9017-6130fe9decb0}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="adapter.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="hw.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="kshelper.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="topo.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="wave.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="wavestream.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="hw.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="kshelper.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="topo.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="toptable.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="wavestream.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="wavtable.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sonicsaudio.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vrtaupipe.inf" />
+  </ItemGroup>
+</Project>

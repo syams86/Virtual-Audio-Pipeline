@@ -1,0 +1,133 @@
+[Version]
+Signature="$CHICAGO$"
+Class=MEDIA
+Provider=%SONICS%
+ClassGUID={4d36e96c-e325-11ce-bfc1-08002be10318}
+DriverVer = 02/22/2007, 6.0.6000.1
+;;CatalogFile=sonics.cat
+
+[SourceDisksNames]
+222="SONICS Driver Disk","",222
+
+[SourceDisksFiles]
+vrtaupipe.sys=222
+
+;;This syntax is only recognized on Windows XP and above- it is needed to install 64-bit drivers on
+;;Windows Server 2003 Service Pack 1 and above.
+
+[Manufacturer]
+%MfgName%=SonicsDeviceSection,NTAMD64,NTIA64
+
+;;  For Windows Server 2003 Service Pack 1 and above, a 64-bit OS will not install a driver
+;;  unless the Manufacturer and Models Sections explicitly show it is a driver for that platform
+;;  But the individual model section decorations (or lack thereof) work as they always have.
+;;  All of the model sections referred to are undecorated or NT-decorated, hence work on all platforms
+
+[SonicsDeviceSection]
+%SONICS_WaveExtensible.DeviceDesc%=SONICS_WaveExtensible,*SONICSWaveExtensible
+
+;; This section enables installing on x64 systems
+
+[SonicsDeviceSection.NTAMD64]
+%SONICS_WaveExtensible.DeviceDesc%=SONICS_WaveExtensible,*SONICSWaveExtensible
+
+;;  This section enables installing on Itanium systems
+
+[SonicsDeviceSection.NTIA64]
+%SONICS_WaveExtensible.DeviceDesc%=SONICS_WaveExtensible,*SONICSWaveExtensible
+
+[DestinationDirs]
+SONICS_WaveExtensible.CopyList=10,system32\drivers
+
+;======================================================
+; SONICS_WaveExtensible
+;======================================================
+[SONICS_WaveExtensible]
+AlsoInstall=ks.registration(ks.inf),wdmaudio.registration(wdmaudio.inf)
+CopyFiles=SONICS_WaveExtensible.CopyList
+AddReg=SONICS_WaveExtensible.AddReg
+
+[SONICS_WaveExtensible.CopyList]
+vrtaupipe.sys
+
+[SONICS_WaveExtensible.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,SONICS.I.Topo
+
+[SONICS_WaveExtensible.AddReg]
+HKR,,AssociatedFilters,,"wdmaud,redbook"
+HKR,,Driver,,vrtaupipe.sys
+
+HKR,Drivers,SubClasses,,"wave,mixer"
+
+HKR,Drivers\wave\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+
+HKR,Drivers\wave\wdmaud.drv,Description,,%SONICS_WaveExtensible.DeviceDesc%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%SONICS_WaveExtensible.DeviceDesc%
+
+;======================================================
+; COMMON
+;======================================================
+[SONICS.I.Wave]
+AddReg=SONICS.I.Wave.AddReg
+[SONICS.I.Wave.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SONICS.Wave.szPname%
+
+[SONICS.I.Topo]
+AddReg=SONICS.I.Topo.AddReg
+[SONICS.I.Topo.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SONICS.Topo.szPname%
+
+;======================================================
+; SONICS_Extensible
+;======================================================
+[SONICS_WaveExtensible.NT]
+Include=ks.inf,wdmaudio.inf
+Needs=KS.Registration, WDMAUDIO.Registration
+CopyFiles=SONICS_WaveExtensible.CopyList
+AddReg=SONICS_WaveExtensible.AddReg
+
+[SONICS_WaveExtensible.NT.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,SONICS.I.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,SONICS.I.Topo
+
+[SONICS_WaveExtensible.NT.Services]
+AddService=sonics_WaveExtensible,0x00000002,sonics_WaveExtensible_Service_Inst
+
+[sonics_WaveExtensible_Service_Inst]
+DisplayName=%sonics_WaveExtensible.SvcDesc%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%10%\system32\drivers\vrtaupipe.sys
+
+;======================================================
+; COMMON
+;======================================================
+[Strings]
+SONICS="Sonics"
+MfgName="Sonics Audio DDK"
+SONICS_WaveExtensible.DeviceDesc="Sonics Virtual Audio Device (Wave Extensible) (WDM)"
+
+SONICS.Wave.szPname="SONICS Wave"
+SONICS.Topo.szPname="SONICS Topology"
+
+Proxy.CLSID="{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+KSCATEGORY_AUDIO="{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_RENDER="{65E8773E-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_CAPTURE="{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+
+KSNAME_Wave="Wave"
+KSNAME_Topology="Topology"
+
+SONICS_WaveExtensible.SvcDesc="Sonics Virtual Audio Device (Wave Extensible) (WDM)"
+
+
+
