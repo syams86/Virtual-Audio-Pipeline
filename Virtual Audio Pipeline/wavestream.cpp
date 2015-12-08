@@ -32,7 +32,7 @@ CMiniportWaveCyclicStream::CMiniportWaveCyclicStream(PUNKNOWN pUnknownOuter):CUn
     m_ullElapsedTimeCarryForward = 0;
     m_ulByteDisplacementCarryForward = 0;
 	m_pvDmaBuffer = NULL;
-    m_ulDmaBufferSize = DMA_BUFFER_SIZE ;
+    m_ulDmaBufferSize = 0;
     m_ulDmaMovementRate = 0;
     m_ullDmaTimeStamp = 0;
 	////
@@ -40,7 +40,7 @@ CMiniportWaveCyclicStream::CMiniportWaveCyclicStream(PUNKNOWN pUnknownOuter):CUn
 
 	m_pDpc = NULL; 
 	m_pTimer = NULL; 
-
+	
 	////
 	
 }
@@ -535,7 +535,7 @@ Return Value:
   NT status code.
 */
 {
-  UNREFERENCED_PARAMETER(BufferSize);
+  
   UNREFERENCED_PARAMETER(PhysicalAddressConstraint); 
 
   PAGED_CODE();
@@ -543,7 +543,7 @@ Return Value:
   DBGPRINT("[CMiniportWaveCyclicStream::AllocateBuffer]");
 
   // Adjust this cap as needed...
-  //ASSERT (BufferSize <= DMA_BUFFER_SIZE);
+  ASSERT (BufferSize <= DMA_BUFFER_SIZE);
 
   //NTSTATUS ntStatus = STATUS_SUCCESS;
 
@@ -551,7 +551,7 @@ Return Value:
   //if (!m_pvDmaBuffer) {
   //    ntStatus = STATUS_INSUFFICIENT_RESOURCES;
   //} else {
-   //   m_ulDmaBufferSize = BufferSize;
+     m_ulDmaBufferSize = BufferSize;
   //}
 
   return STATUS_SUCCESS;
@@ -713,7 +713,7 @@ Return Value:
 
   //if ( m_pvDmaBuffer ) {
    // ExFreePool( m_pvDmaBuffer );
-   // m_ulDmaBufferSize = 0;
+    m_ulDmaBufferSize = 0;
    // m_pvDmaBuffer = NULL;
   //}
 
@@ -797,14 +797,14 @@ Return Value:
   void
 */
 {
-  UNREFERENCED_PARAMETER(BufferSize);
+ 
   DBGPRINT("[CMiniportWaveCyclicStream::SetBufferSize]");
 
-  //if ( BufferSize <= m_ulDmaBufferSize ) {
-   // m_ulDmaBufferSize = BufferSize;
-  //} else {
-   // DPF(D_ERROR, ("Tried to enlarge dma buffer size"));
-  //}
+  if ( BufferSize <= m_ulDmaBufferSize ) {
+    m_ulDmaBufferSize = BufferSize;
+  } else {
+    DPF(D_ERROR, ("Tried to enlarge dma buffer size"));
+  }
 } // SetBufferSize
 
 //=============================================================================
